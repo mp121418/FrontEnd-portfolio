@@ -1,0 +1,230 @@
+<div class="modal fade" id="exampleModal-estudios" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="taxt-center">Estudios</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+          <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+              
+                <div class="mb-3">
+                  <div *ngIf="mje == 'quitar'" class="lista-estudio">
+                    <h5 class="form text-center mb-3">Quitar Estudio</h5>
+                  
+                    <ul *ngFor="let estudio of educacion" style="list-style:none">
+                    
+                    <li type="button" class="estudio" (click)="borrar(estudio.id)">{{estudio.titulo}}
+                      <i class="fa-solid fa-xmark"
+                      [ngStyle]="{'color':'red'}"
+                      ></i>
+                    </li>
+                  </ul>
+                 <!-- <button type="submit" class="btn btn-primary container-fluid mt-3" >Guardar Cambios</button>
+                -->  </div>
+                <div *ngIf="mje == 'agregar'">
+                  <h5 class="form text-center mb-3">Agregar Estudio</h5>
+                  <form [formGroup]="form" (ngSubmit)="onEnviar($event)" novalidate >
+                    <div class="mb-3">
+                      <label for="tipo-estudio" class="label">Tipo de Estudio realizado:</label>
+                      <select formControlName="tipoeducacion" (change)="capturar()" class="form-control mb-3"  id= "tipo-estudio" style="width: 100%">
+                        <option value="0">Selecciona una opción</option>
+                        <option *ngFor="let dato of datos" [ngValue]="dato">
+                            {{ dato }}
+                        </option>
+                        </select>
+                      <label id="estudio-curso" for="number" class="label">Titulo</label>
+                      <input type="text" class="form-control" formControlName="titulo" id="titulo" name="titulo" [(ngModel)]="titulo" 
+                      [ngClass]="{'is-invalid': Titulo.errors && Titulo.touched, 'is-valid':!Titulo.errors && Titulo.touched}">
+                      <!--<div id="fortalezaHelp" class="form-text mb-4">Ingrese el titulo que obtuvo</div>-->
+                      <div id="titulo" class="form-text">Ingrese el titulo del certificado que posee</div>
+                      <div *ngIf="Titulo.errors  && Titulo.touched">    
+                        <p *ngIf="Titulo.hasError('required')" class="text-danger">
+                            El titulo del estudio es requerido.
+                        </p>
+                        <p *ngIf="Titulo?.errors?.minlength" class="error">
+                              El titulo debe tener como mínimo 3 caracteres.
+                            </p>
+                        <p *ngIf="Titulo?.errors?.maxlength" class="error">
+                              El titulo debe tener como maximo 25 caracteres.
+                        </p>
+                      </div>
+                      </div>
+                      
+                      <div class="fecha mb-3">
+                      <label class="label">Fecha en que fue realizado:</label>
+                      <label id="fecha1">Inicio</label>
+                      <input type="date" class="form-control mb-4" id="fecha1" formControlName="inicio" name="fecha1" [(ngModel)]="inicio"
+                      [ngClass]="{'is-invalid': Inicio.errors && Inicio.touched, 'is-valid':!Inicio.errors && Inicio.touched}">
+                      <div *ngIf="Inicio.errors  && Inicio.touched">    
+                        <p *ngIf="Inicio.hasError('required')" class="text-danger">
+                            La fecha de inicio del estudio es requerida.
+                        </p>
+                       <p *ngIf="Titulo?.errors?.maxlength" class="error">
+                              la fecha debe tener como maximo 8 numeros.
+                        </p>
+                      </div>
+                      </div>
+  
+                      <div class="mb-3">
+                      <label id="fecha2">Fin</label>
+                      <input type="date" class="form-control mb-4" formControlName="fin"  name="fin" [(ngModel)]="fin" 
+                      [ngClass]="{'is-invalid': Fin.errors && Fin.touched, 'is-valid':!Fin.errors && Fin.touched}">
+                      <div *ngIf="Fin.errors  && Fin.touched">    
+                        <p *ngIf="Fin?.errors?.maxlength" class="error">
+                              la fecha debe tener como maximo 8 numeros.
+                        </p>
+                      </div>
+                      </div>
+  
+                      <div class="mb-3">
+                        <div class="form-check">
+                          <input type="checkbox" class="form-check-input" formControlName="cursando"  id="cursando"  [(ngModel)]="cursando">
+                          <label class="form-check-label mb-3" for="exampleCheck1">Cursando</label>
+                        </div>
+                      </div>
+                      
+                      <div class="mb-3">
+                      <label class="label">Institución</label>
+                      <input type="text" class="form-control mb-4" id="institucion"   formControlName="institucion" [(ngModel)]="institucion"
+                      [ngClass]="{'is-invalid': Institucion.errors && Institucion.touched, 'is-valid':!Institucion.errors && Institucion.touched}">
+                      <div *ngIf="Institucion.errors  && Institucion.touched">    
+                        <p *ngIf="Institucion?.errors?.maxlength" class="error">
+                              El nombre de la institucion debe tener como maximo 25 numeros.
+                        </p>
+                      </div>
+                      </div>
+                    <div class="mb-3">
+                      <label class="label">Imagen de la Institución</label>
+                      <input type="file" class="form-control mb-4"  formControlName="icono" name="icono" (change)="uploadImage($event)" [(ngModel)]="icono">
+                      <div class="label" fxFlex="30" *ngIf="completed">Archivo cargado</div>
+                      <div class="label" fxFlex="30" *ngIf="!completed">Espere a que se cargue el Archivo..</div>
+                  
+                    </div>
+                    
+                   
+                   <button type="submit" class="btn btn-primary container-fluid mt-3">Guardar Cambios</button>
+                   <button type="submit" class="btn btn-ligth container-fluid mt-3"  (click)="Limpiar();" >Limpiar</button>
+              </form>
+                </div>
+  
+                <div *ngIf="mje === 'editar'">
+                  <h5 class="form text-center mb-3">Editar Estudio</h5>
+                 <div *ngFor="let estudio of educacion" style="list-style:none">
+                  <ul>
+                     <li type="button" class="estudio"(click)="cargarDetalle(estudio.id)" >{{estudio.titulo}}
+                      <i class="fa-solid fa-pen"
+                      [ngStyle]="{'color':'green'}"
+                      
+                      ></i>
+                    </li>
+                  </ul>
+                 
+                </div>
+                <div *ngIf="edu">
+                <form [formGroup]="form" (ngSubmit)="OnUpdate(edu.id)" novalidate>
+                  <div class="mb-3">
+                    <label for="tipo-estudio" class="label">Tipo de Estudio realizado:</label>
+                    <select formControlName="tipoeducacion" class="form-control mb-3"   [(ngModel)]="edu.tipoeducacion"  style="width: 100%">
+                      <option value="0">{{edu.tipoeducacion}}</option>
+                      <option *ngFor="let dato of datos" [ngValue]="dato">
+                          {{ dato }}
+                      </option>
+                      </select>
+                      </div>
+                      <div class="mb-3">
+                        <label id="estudio-curso" for="number" class="label">Titulo</label>
+                        <input type="text" class="form-control" id="estudio-curso" formControlName="titulo" name="titulo" [(ngModel)]="edu.titulo" 
+                        [ngClass]="{'is-invalid': Titulo.errors && Titulo.touched, 'is-valid':!Titulo.errors && Titulo.touched}">
+                        <div id="fortalezaHelp" class="form-text mb-4">Ingrese el titulo modificado</div>
+                      </div>
+                      
+                      <div *ngIf="Titulo.errors  && Titulo.touched">    
+                        <p *ngIf="Titulo.hasError('required')" class="text-danger">
+                            El titulo del estudio es requerido.
+                        </p>
+                        <p *ngIf="Titulo?.errors?.minlength" class="error">
+                              El titulo debe tener como mínimo 3 caracteres.
+                            </p>
+                        <p *ngIf="Titulo?.errors?.maxlength" class="error">
+                              El titulo debe tener como maximo 25 caracteres.
+                        </p>
+                      </div>
+                     
+                  <div class="fecha mb-3">
+                    <label class="label">Fecha en que fue realizado:</label>
+                    <label id="fecha1">Inicio</label>
+                    <input type="date" class="form-control mb-4" id="fecha1" formControlName="inicio" name="fecha1" [(ngModel)]="edu.inicio" 
+                    [ngClass]="{'is-invalid': Inicio.errors && Inicio.touched, 'is-valid':!Inicio.errors && Inicio.touched}">
+                    <div *ngIf="Inicio.errors  && Inicio.touched">    
+                      <p *ngIf="Fin?.errors?.maxlength" class="error">
+                            la fecha debe tener como maximo 8 numeros.
+                      </p>
+                    </div>
+                    <label id="fecha2">Fin</label>
+                    <input type="date" class="form-control mb-4" id="fecha2" formControlName="fin" (change)="avisar('fecha')" [disabled]="AvisarFecha" name="fecha2" [(ngModel)]="edu.fin" 
+                    [ngClass]="{'is-invalid': Fin.errors && Fin.touched, 'is-valid':!Fin.errors && Fin.touched}">
+                    <div *ngIf="Fin.errors  && Fin.touched">    
+                      <p *ngIf="Fin?.errors?.maxlength" class="error">
+                            la fecha debe tener como maximo 8 numeros.
+                      </p>
+                    </div>
+                  </div>
+  
+                    <div class="mb-3">
+                      <div class="form-check">
+                        <input type="checkbox" class="form-check-input" (change)="avisar('check')" formControlName="cursando" name="exampleCheck1" [attr.disabled]="AvisarFecha ? true : null"  ng-model="edu.cursando" [(ngModel)]="edu.cursando">
+                        <label class="form-check-label mb-3" for="exampleCheck1">Cursando</label>
+                      </div>
+                    </div>
+                    
+                    <div class="mb-3">
+                    <label class="label">Institución</label>
+                    <input type="text" class="form-control mb-4" id="institucion" name="institucion"  formControlName="institucion" [(ngModel)]="edu.institucion"
+                    [ngClass]="{'is-invalid': Institucion.errors && Institucion.touched, 'is-valid':!Institucion.errors && Institucion.touched}">
+                    <div *ngIf="Institucion.errors  && Institucion.touched">    
+                      <p *ngIf="Institucion?.errors?.maxlength" class="error">
+                            El nombre de la institucion debe tener como maximo 25 numeros.
+                      </p>
+                      <p *ngIf="Institucion?.errors?.minlength" class="error">
+                        El nombre de la institucion debe tener como minimo 3 caracteres.
+                  </p>
+                    </div>
+                    </div>
+                  <div class="mb-3">
+                    <label class="label">Imagen actual Institución</label>
+                 <!--   <input type="text" class="form-control mb-4" formControlName="icono" name="icono" [(ngModel)]="edu.icono" readonly onmousedown="return false;">-->
+                 <div class="form-floating">
+                  <textarea class="form-control mb-3"  style="height: 100px" formControlName="icono" name="icono" [(ngModel)]="edu.icono" readonly onmousedown="return false;"></textarea>
+                  
+                </div>
+                         
+                    <label class="label">Imagen de la Institución</label>
+                    <input type="file" class="form-control mb-4" formControlName="icono" name="icono" (change)="uploadImageEdit($event)" [(ngModel)]="edu.icono">
+                    <div class="label" fxFlex="30" *ngIf="completed">Archivo cargado</div>
+                    <div class="label" fxFlex="30" *ngIf="!completed">Espere a que se cargue el Archivo..</div>
+                  </div>
+                  
+                  
+                  <button type="submit" class="btn btn-primary container-fluid mt-3">Guardar Cambios</button>
+            </form>
+            
+          </div>
+                </div>
+              </div>
+  
+             
+             
+              </div>
+            <div class="col-1"></div>
+          </div>
+        </div>
+      
+      </div>
+    </div>
+  </div>
+  
+    

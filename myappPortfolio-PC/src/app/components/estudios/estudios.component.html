@@ -1,0 +1,16 @@
+<div class="col-1"></div>
+    <div class="col-8 estudios mt-3">
+    <h1 class="title">Estudios</h1>
+    <ul class="list-group" style="list-style:none">
+        <li *ngFor="let estudio of educacion" class="list-group"> 
+            <h2>{{estudio.tipoeducacion}}</h2>
+            
+            <h2 class="titulo"><img [src]="estudio.icono"  alt="" width="2%">
+                {{estudio.titulo}}</h2>
+            <h2 class="ml-3"><i>{{estudio.institucion}} ({{estudio.inicio}} | {{estudio.fin}})</i></h2>
+            <h2 class="titulo" *ngIf="estudio.cursando">Actualmente Estoy estudiando aquí </h2>
+            
+        </li>
+    </ul>
+    </div>
+    <div class="col-1"></div>

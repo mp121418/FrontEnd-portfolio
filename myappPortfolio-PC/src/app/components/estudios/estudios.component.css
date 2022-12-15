@@ -1,0 +1,37 @@
+.estudio{
+  
+    /*background-color: #f6f1f8ea;*/
+    background: linear-gradient(300deg,rgb(247, 241, 247),rgba(167, 164, 226, 0.8));
+    
+    padding: 1vh 2vh;
+   
+   }
+   .estudios{
+    border-left:3px solid #000 ;
+   margin-left: 40px;
+  
+   }
+   .estudios h1{
+     color: #0e076b;
+     font-size: 2.2rem;
+     
+   }
+   
+   .titulo{
+    font-size: 1.1rem;
+   }
+  img,.titulo{
+    display: inline;
+    margin-left: 10px;
+    vertical-align: middle;
+  }
+ .list-group{
+    margin-left: 2vh;
+    padding-bottom: 2vh;
+    
+  } 
+   
+   .estudios h2{
+   
+    font-size: 1.5rem;
+   }

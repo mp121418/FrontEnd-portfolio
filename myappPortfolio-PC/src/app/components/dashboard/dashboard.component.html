@@ -1,0 +1,37 @@
+<section  class="dashboard">
+   
+    <div class="container flex text-center">
+        <div class="row g-2 g-lg-3">
+          <div class="col">
+            <div class="flip-card">
+          
+        <div class="flip-card-inner">
+          <div class="flip-card-front">
+            <i class="fa-solid fa-screwdriver-wrench fa-lg" style="font-size: 130px;"></i>
+            <!--<img src="imagenes/skills.png" alt="Avatar" style="width:20vh;height:20vh;">-->
+          </div>
+          <div class="flip-card-back">
+            <h1 class="pt-3">Educacion</h1> 
+            
+            <div class="botonagregar">
+              
+              <button class="btn" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-skills">
+                <i class="fa-solid fa-circle-plus"
+                (click)="evento()"> Agregar </i></button>
+              
+              <button class="btn1" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-skills">
+                <i class="fa-solid fa-circle-minus"
+                (click)="quitar()" > Quitar </i></button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal-skills">
+                  <i class="fa-solid fa-pen" (click)="editar()"> Editar </i></button>
+                  
+              </div> 
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+      </div>
+    
+</section>
+<app-modal-estudios [mje]="Agregar"></app-modal-estudios>
